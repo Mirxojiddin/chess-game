@@ -21,3 +21,7 @@ class Player(models.Model):
 
 	def __str__(self):
 		return f"{self.country.prefix} {self.name}"
+
+	def save(self, *args, **kwargs):
+		self.games_played = self.wins + self.losses + self.draws
+		super(Player, self).save(*args, **kwargs)

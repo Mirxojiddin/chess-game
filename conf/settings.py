@@ -27,7 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # local_app
+    # packages
+    'rest_framework',
+
+    # local_apps
     'gaming.apps.GamingConfig'
 
 ]

@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView
+from gaming.models import Country, Player
+from gaming.serializer import PlayerListSerializer, CountryListSerializer
 
-# Create your views here.
+
+class CountryListAPIView(ListAPIView):
+	queryset = Country.objects.all()
+	serializer_class = CountryListSerializer
+

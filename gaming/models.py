@@ -1,12 +1,10 @@
 
 from django.db import models
 
-from gaming.utilts import validate_isalpha, validate_non_negative
-
 
 class Country(models.Model):
-	name = models.CharField(max_length=50, validators=[validate_isalpha])
-	prefix = models.CharField(max_length=5, validators=[validate_isalpha])
+	name = models.CharField(max_length=50 )
+	prefix = models.CharField(max_length=5)
 
 	def __str__(self):
 		return f"{self.name}"
@@ -16,12 +14,12 @@ class Country(models.Model):
 
 
 class Player(models.Model):
-	name = models.CharField(max_length=100, validators=[validate_isalpha])
-	elo_rating = models.PositiveIntegerField(default=0, validators=[validate_non_negative])
+	name = models.CharField(max_length=100)
+	elo_rating = models.PositiveIntegerField(default=0)
 	country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-	wins = models.PositiveIntegerField(default=0, validators=[validate_non_negative])
-	losses = models.PositiveIntegerField(default=0, validators=[validate_non_negative])
-	draws = models.PositiveIntegerField(default=0, validators=[validate_non_negative])
+	wins = models.PositiveIntegerField(default=0)
+	losses = models.PositiveIntegerField(default=0)
+	draws = models.PositiveIntegerField(default=0)
 	games_played = models.PositiveIntegerField(default=0, editable=False)
 
 	def __str__(self):
@@ -30,3 +28,6 @@ class Player(models.Model):
 	def save(self, *args, **kwargs):
 		self.games_played = self.wins + self.losses + self.draws
 		super(Player, self).save(*args, **kwargs)
+
+	class Meta:
+		ordering = ['-elo_rating']

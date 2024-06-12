@@ -11,10 +11,24 @@ A Django-based web application that provides a REST API for managing chess games
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Installation](#installation)
+- [Usage](#usage)
 - [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+  - [Players Endpoint](#players-endpoint)
+    - [Get All Players](#get-all-players)
+    - [Filter Players](#filter-players)
+    - [Create a New Player](#create-a-new-player)
+    - [Update a Player](#update-a-player)
+    - [Delete a Player](#delete-a-player)
+    - [Filtering Examples](#filtering-examples)
+  - [Games Endpoint](#games-endpoint)
+    - [Get All Games](#get-all-games)
+    - [Filter Games](#filter-games)
+    - [Create a New Game](#create-a-new-game)
+    - [Update a Game](#update-a-game)
+    - [Delete a Game](#delete-a-game)
 - [Contact Information](#contact-information)
+
 
 ## Installation
 1. Clone the repository:
@@ -43,12 +57,12 @@ Access the application at http://127.0.0.1:8000/
 ## API Documentation
 Sure! Here's the API documentation for the Players and Games endpoints written in Markdown format:
 
-```markdown
+
 # Players Endpoint
 
 ## Get All Players
 
-- **URL:** `/api/players/`
+- **URL:** `/api/v1/player/`
 - **Method:** GET
 - **Description:** Retrieve a list of all players.
 - **Response:** JSON
@@ -80,17 +94,17 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 ## Filter Players
 
-- **URL:** `/api/players/`
+- **URL:** `/api/v1/player/`
 - **Method:** GET
 - **Description:** Retrieve a list of players based on filter criteria.
 - **Query Parameters:**
   - `name` (string, optional): Filter players by name.
-  - `elo_rating_min` (integer, optional): Filter players with a minimum ELO rating.
-  - `elo_rating_max` (integer, optional): Filter players with a maximum ELO rating.
+  - `min_elo_rating` (integer, optional): Filter players with a minimum ELO rating.
+  - `max_elo_rating` (integer, optional): Filter players with a maximum ELO rating.
   - `country` (string, optional): Filter players by country.
 - **Example Request:**
   ```
-  GET /api/players/?name=John&elo_rating_min=2000&elo_rating_max=2500&country=USA
+  GET /api/v1/player/?name=John&min_elo_rating=2000&max_elo_rating=2500&country=USA
   ```
 - **Example Response:** JSON
 
@@ -111,7 +125,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 ## Create a New Player
 
-- **URL:** `/api/players/`
+- **URL:** `/api/v1/player/`
 - **Method:** POST
 - **Description:** Create a new player.
 - **Request Body:** JSON
@@ -121,7 +135,6 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
   "name": "Alice Johnson",
   "elo_rating": 1800,
   "country": "Canada",
-  "games_played": 0,
   "wins": 0,
   "losses": 0,
   "draws": 0
@@ -145,7 +158,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 ## Update a Player
 
-- **URL:** `/api/players/{id}/`
+- **URL:** `/api/v1/player/{id}/`
 - **Method:** PUT
 - **Description:** Update an existing player.
 - **Request Body:** JSON
@@ -154,8 +167,6 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 {
   "name": "Alice Johnson",
   "elo_rating": 1850,
-  "country": "Canada",
-  "games_played": 10,
   "wins": 5,
   "losses": 4,
   "draws": 1
@@ -179,7 +190,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 ## Delete a Player
 
-- **URL:** `/api/players/{id}/`
+- **URL:** `/api/v1/player/{id}/`
 - **Method:** DELETE
 - **Description:** Delete an existing player.
 - **Response:** JSON
@@ -196,7 +207,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 - **Request:**
   ```
-  GET /api/players/?name=Alice
+  GET /api/v1/player/?name=Alice
   ```
 - **Response:** JSON
 
@@ -219,7 +230,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 - **Request:**
   ```
-  GET /api/players/?elo_rating_min=2000&elo_rating_max=2500
+  GET /api/v1/player/?min_elo_rating=2000&max_elo_rating=2500
   ```
 - **Response:** JSON
 
@@ -252,7 +263,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 - **Request:**
   ```
-  GET /api/players/?country=USA
+  GET /api/v1/player/?country=USA
   ```
 - **Response:** JSON
 
@@ -275,7 +286,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 - **Request:**
   ```
-  GET /api/players/?name=Jane&elo_rating_min=2000&country=UK
+  GET /api/v1/player/?name=Jane&min_elo_rating=2000&country=UK
   ```
 - **Response:** JSON
 
@@ -298,7 +309,7 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 
 ## Get All Games
 
-- **URL:** `/api/games/`
+- **URL:** `/api/v1/game/`
 - **Method:** GET
 - **Description:** Retrieve a list of all games.
 - **Response:** JSON
@@ -310,39 +321,37 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
     "white_player": "John Doe",
     "black_player": "Jane Smith",
     "result": "win",
-    "opening_type": "Sicilian Defense",
-    "number_of_moves": 42,
-    "date_played": "2023-05-01"
+    "opening": "Sicilian Defense",
+    "moves": 42,
+    "date": "2023-05-01"
   },
   {
     "id": 2,
     "white_player": "Alice Johnson",
     "black_player": "John Doe",
     "result": "draw",
-    "opening_type": "Ruy Lopez",
-   
-
- "number_of_moves": 30,
-    "date_played": "2023-06-15"
+    "opening": "Ruy Lopez",
+    "moves": 30,
+    "date": "2023-06-15"
   }
 ]
 ```
 
 ## Filter Games
 
-- **URL:** `/api/games/`
+- **URL:** `/api/v1/game/`
 - **Method:** GET
 - **Description:** Retrieve a list of games based on filter criteria.
 - **Query Parameters:**
   - `white_player_name` (string, optional): Filter games by white player name.
   - `black_player_name` (string, optional): Filter games by black player name.
   - `result` (string, optional): Filter games by result (win, loss, draw).
-  - `opening_type` (string, optional): Filter games by opening type.
-  - `date_played_min` (date, optional): Filter games played after this date.
-  - `date_played_max` (date, optional): Filter games played before this date.
+  - `opening` (string, optional): Filter games by opening type.
+  - `min_date_played` (date, optional): Filter games played after this date.
+  - `max_date_played` (date, optional): Filter games played before this date.
 - **Example Request:**
   ```
-  GET /api/games/?white_player_name=John&result=win&opening_type=Sicilian Defense&date_played_min=2023-01-01&date_played_max=2023-12-31
+  GET /api/v1/game/?white_player_name=John&result=win&opening=Sicilian Defense&min_date_played=2023-01-01&max_date_played=2023-12-31
   ```
 - **Example Response:** JSON
 
@@ -353,16 +362,16 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
     "white_player": "John Doe",
     "black_player": "Jane Smith",
     "result": "win",
-    "opening_type": "Sicilian Defense",
-    "number_of_moves": 42,
-    "date_played": "2023-05-01"
+    "opening": "Sicilian Defense",
+    "moves": 42,
+    "date": "2023-05-01"
   }
 ]
 ```
 
 ## Create a New Game
 
-- **URL:** `/api/games/`
+- **URL:** `/api/v1/game/`
 - **Method:** POST
 - **Description:** Create a new game.
 - **Request Body:** JSON
@@ -372,9 +381,9 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
   "white_player": "Alice Johnson",
   "black_player": "John Doe",
   "result": "draw",
-  "opening_type": "Ruy Lopez",
-  "number_of_moves": 30,
-  "date_played": "2023-06-15"
+  "opening": "Ruy Lopez",
+  "moves": 30,
+  "date": "2023-06-15"
 }
 ```
 
@@ -386,15 +395,15 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
   "white_player": "Alice Johnson",
   "black_player": "John Doe",
   "result": "draw",
-  "opening_type": "Ruy Lopez",
-  "number_of_moves": 30,
-  "date_played": "2023-06-15"
+  "opening": "Ruy Lopez",
+  "moves": 30,
+  "date": "2023-06-15"
 }
 ```
 
 ## Update a Game
 
-- **URL:** `/api/games/{id}/`
+- **URL:** `/api/v1/game/{id}/`
 - **Method:** PUT
 - **Description:** Update an existing game.
 - **Request Body:** JSON
@@ -404,9 +413,9 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
   "white_player": "Alice Johnson",
   "black_player": "John Doe",
   "result": "win",
-  "opening_type": "Ruy Lopez",
-  "number_of_moves": 28,
-  "date_played": "2023-06-15"
+  "opening": "Ruy Lopez",
+  "moves": 28,
+  "date": "2023-06-15"
 }
 ```
 
@@ -418,15 +427,15 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
   "white_player": "Alice Johnson",
   "black_player": "John Doe",
   "result": "win",
-  "opening_type": "Ruy Lopez",
-  "number_of_moves": 28,
-  "date_played": "2023-06-15"
+  "opening": "Ruy Lopez",
+  "moves": 28,
+  "date": "2023-06-15"
 }
 ```
 
 ## Delete a Game
 
-- **URL:** `/api/games/{id}/`
+- **URL:** `/api/v1/game/{id}/`
 - **Method:** DELETE
 - **Description:** Delete an existing game.
 - **Response:** JSON
@@ -437,9 +446,11 @@ Sure! Here's the API documentation for the Players and Games endpoints written i
 }
 ```
 
-# Contributing
 
-Contributions are welcome! Please submit a pull request or open an issue to discuss the changes you want to make.
-```
+## Contact Information
 
-Feel free to adjust the formatting or add more details as needed!
+For any inquiries or support, feel free to contact us:
+
+- **Email:** [umirxojiddin@gmail.com](mailto:umirxojiddin@gmail.com)
+- **GitHub:** [Mirxojiddin](https://github.com/Mirxojiddin)
+- **Telegram:** [Telegram](https://t.me/Mirxojiddin)

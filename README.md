@@ -45,7 +45,7 @@ A Django-based web application that provides a REST API for managing chess games
 3. Set up the database:
    ```bash
    python manage.py migrate
-   python manage.py generate_data  # Custom management command to generate data
+   python manage.py genirator  # Custom management command to generate data
    ```
 4. Run server
 ```bash
